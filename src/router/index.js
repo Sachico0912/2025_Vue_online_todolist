@@ -1,4 +1,5 @@
 import LoginView from '@/views/LoginView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import TodoListView from '@/views/TodoListView.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
@@ -20,6 +21,11 @@ const router = createRouter({
       path: '/todolist',
       name: 'todolist',
       component: TodoListView,
+    },
+    {
+      path: '/:pathMath(.*)*',
+      name: 'notfound',
+      component: NotFoundView,
     },
   ],
 })
