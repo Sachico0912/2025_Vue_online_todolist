@@ -13,3 +13,8 @@ export const register = async (email, password, nickname) => {
     nickname,
   })
 }
+
+//登入
+export const login = async (email, password) => {
+  return await api.post('users/sign_in', { email, password })
+}
