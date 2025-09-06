@@ -1,5 +1,6 @@
 <script setup>
 import TodoItem from './TodoItem.vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   todos: {
@@ -9,15 +10,18 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['delete-todo'])
+
+const filterStatus = ref('all')
 </script>
 
 <template>
   <div class="todoList_list">
     <ul class="todoList_tab">
-      <li><a href="#" class="active">全部</a></li>
-      <li><a href="#">待完成</a></li>
-      <li><a href="#">已完成</a></li>
+      <li><a href="#" @click.prevent="filterStatus = 'all'" class="active">全部</a></li>
+      <li><a href="#" @click.prevent="filterStatus = 'incomplete'">待完成</a></li>
+      <li><a href="#" @click.prevent="filterStatus = 'completed'">已完成</a></li>
     </ul>
+    {{ filterStatus }}
     <div class="todoList_items">
       <ul class="todoList_item">
         <TodoItem
