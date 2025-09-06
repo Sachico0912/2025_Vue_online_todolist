@@ -16,7 +16,7 @@ function handelDeleteTodo(id) {
 <template>
   <li>
     <label class="todoList_label">
-      <input class="todoList_input" type="checkbox" value="true" />
+      <input class="todoList_input" type="checkbox" value="true" v-model="todo.status" />
       <span>{{ todo.content }}</span>
     </label>
     <a href="#" @click.prevent="handelDeleteTodo(todo.id)">

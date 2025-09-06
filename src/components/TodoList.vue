@@ -1,6 +1,6 @@
 <script setup>
 import TodoItem from './TodoItem.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
   todos: {
@@ -12,6 +12,21 @@ const props = defineProps({
 const emit = defineEmits(['delete-todo'])
 
 const filterStatus = ref('all')
+
+const filterTodos = computed(() => {
+  switch (filterStatus.value) {
+    case 'incomplete':
+      return props.todos.filter((t) => !t.status)
+    case 'completed':
+      return props.todos.filter((t) => t.status)
+    default:
+      return props.todos
+  }
+})
+
+const incompleteTodos = computed(() => {
+  return props.todos.filter((t) => !t.status)
+})
 </script>
 
 <template>
@@ -42,18 +57,17 @@ const filterStatus = ref('all')
         >
       </li>
     </ul>
-    {{ filterStatus }}
     <div class="todoList_items">
       <ul class="todoList_item">
         <TodoItem
-          v-for="todo in todos"
+          v-for="todo in filterTodos"
           :key="todo.id"
           :todo="todo"
           @delete-todo="emit('delete-todo', $event)"
         />
       </ul>
       <div class="todoList_statistics">
-        <p>5 個已完成項目</p>
+        <p>{{ incompleteTodos.length }}個未完成項目</p>
       </div>
     </div>
   </div>
