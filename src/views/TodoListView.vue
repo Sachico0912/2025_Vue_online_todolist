@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import TodoForm from '@/components/TodoForm.vue'
 import TodoList from '@/components/TodoList.vue'
 import { ref } from 'vue'
@@ -9,13 +9,12 @@ const todos = ref([
 ])
 
 function addTodo(content) {
-  if (content.value.trim() !== '') {
+  if (content.trim() !== '') {
     todos.value.push({
       id: Date.now(),
-      content: content.value,
+      content,
       status: false,
     })
-    content.value = ''
   }
 }
 
@@ -37,7 +36,7 @@ function deleteTodo(id) {
     </nav>
     <div class="conatiner todoListPage vhContainer">
       <div class="todoList_Content">
-        <TodoForm />
+        <TodoForm @add-todo="addTodo" />
         <TodoList v-if="todos.length" :todos="todos" @delete-todo="deleteTodo" />
         <p v-else>目前無待辦事項</p>
       </div>
